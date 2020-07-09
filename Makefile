@@ -13,6 +13,7 @@ SRC := ./src/u_mallocat.c
 SRC += ./src/u_string.c
 SRC += ./src/u_chain.c
 #----------------------
+SRC += ./u_test.c
 SRC += ./main.c
 
 

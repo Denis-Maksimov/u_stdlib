@@ -3,13 +3,7 @@
 #include "u_mallocat.h"
 
 
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned int u32;
 
-typedef signed char s8;
-typedef signed short s16;
-typedef signed int s32;
 // //-------------
 // struct Array{
 //     size_t n;
@@ -34,6 +28,10 @@ static u8 _heap[MY_HEAP_SIZE]={0};
 
 static struct chain* _start_chain=(struct chain*)_heap;
 
+void* u_get_start_chain(void)
+{
+    return _start_chain;
+}
 
 //=============================================================
 static void _attach2_chains(struct chain* first, struct chain* sec)
