@@ -4,22 +4,20 @@
 #include "u_chain.h"
 
 
-
-#define c_new(type) (type*)u_malloc(sizeof(type))
-
-
+// #undef c_new
+#define c_new(t)     ((t*)u_malloc(sizeof(t)))
 
 
 //=============================================================
 
-struct chain* init_chain()
+struct chain* init_chain(void)
 {
     struct chain* ret_ch = c_new(struct chain);
     u_memset(ret_ch, 0, sizeof(struct chain));
     return ret_ch;   
 }
 
-struct chain* new_chain(void* _data, size_t n)
+struct chain* u_new_chain(void* _data, size_t n)
 {
     struct chain* ch=init_chain();
     if(_data)
@@ -31,7 +29,7 @@ struct chain* new_chain(void* _data, size_t n)
     return ch;
 }
 
-struct chain* find_last(struct chain* ch)
+struct chain* u_find_last(struct chain* ch)
 {
 
     //----------------------------
@@ -50,7 +48,7 @@ struct chain* find_last(struct chain* ch)
 	return ch1;
 }
 
-struct chain* find_first(struct chain* ch)
+struct chain* u_find_first(struct chain* ch)
 {
     //0-1-2-3-4
 	struct chain* ch1=ch; //4
@@ -65,10 +63,10 @@ struct chain* find_first(struct chain* ch)
 	return ch1;
 }
 
-int attach(struct chain* first, struct chain* second)
+int u_attach(struct chain* first, struct chain* second)
 {
     //Закольцовка
-    if(  (find_last(first)==find_last(second)) || (find_first(first)==find_first(second))    ) 
+    if(  (u_find_last(first)==u_find_last(second)) || (u_find_first(first)==u_find_first(second))    ) 
     {
         // perror("Ring detected!");
         return 1;
@@ -76,8 +74,8 @@ int attach(struct chain* first, struct chain* second)
 
     struct chain* last_second;
     struct chain* tmp2 = first->next_chain;
-    first->next_chain=find_first(second);
-    last_second = find_last(second);
+    first->next_chain=u_find_first(second);
+    last_second = u_find_last(second);
     last_second->next_chain=tmp2;
     return 0;
 }
@@ -100,11 +98,11 @@ int attach(struct chain* first, struct chain* second)
     // }
 
 
-struct chain* insert_after(struct chain* dest, void* data, size_t n)
+struct chain* u_insert_after(struct chain* dest, void* data, size_t n)
 {
     // 01-02_-03
     struct chain* last_first = dest->next_chain; //03
-    _attach2_chains(dest,new_chain(data, n));
+    _attach2_chains(dest,u_new_chain(data, n));
 
     if(last_first)//03
     {
@@ -115,7 +113,7 @@ struct chain* insert_after(struct chain* dest, void* data, size_t n)
     return dest->next_chain;
 }
 
-struct chain* insert_after_ch(struct chain* dest, struct chain* ch)
+struct chain* u_insert_after_ch(struct chain* dest, struct chain* ch)
 {
     // 01-02_-03
     struct chain* last_first = dest->next_chain; //03
@@ -130,10 +128,10 @@ struct chain* insert_after_ch(struct chain* dest, struct chain* ch)
     return dest->next_chain;
 }
 //-------------------------------------------------------------------
-struct chain* insert_before(struct chain* dest, void* data, size_t n)
+struct chain* u_insert_before(struct chain* dest, void* data, size_t n)
 {
     struct chain* prew_first = dest->prew_chain;
-    _attach2_chains(new_chain(data, n),dest);
+    _attach2_chains(u_new_chain(data, n),dest);
     
     if(prew_first)
     {
@@ -143,7 +141,7 @@ struct chain* insert_before(struct chain* dest, void* data, size_t n)
     // _fill_array(dest->prew_chain, data, n);
     return dest;
 }
-struct chain* insert_before_ch(struct chain* dest, struct chain* ch)
+struct chain* u_insert_before_ch(struct chain* dest, struct chain* ch)
 {
     struct chain* prew_first = dest->prew_chain;
     _attach2_chains(ch,dest);
@@ -158,11 +156,11 @@ struct chain* insert_before_ch(struct chain* dest, struct chain* ch)
 }
 
 
-void free_chain(struct chain* ch)
+void u_free_chain(struct chain* ch)
 {
 
     struct chain* first;
-    struct chain* nxt=find_first(ch);
+    struct chain* nxt=u_find_first(ch);
     while (nxt)
     {
         first=nxt;
@@ -178,7 +176,7 @@ void free_chain(struct chain* ch)
 }
 
 //!WARNING! не забудьте головное значение
-struct chain* cut(struct chain* ch)
+struct chain* u_cut(struct chain* ch)
 {
     struct chain* rv=ch->prew_chain;
     _attach2_chains(ch->prew_chain,ch->next_chain);
@@ -187,18 +185,19 @@ struct chain* cut(struct chain* ch)
     return rv;
 }
 
-struct chain* copy(struct chain* ch)
+struct chain* u_copy(struct chain* ch)
 {
-    return new_chain(ch->array.data, ch->array.n);
+    return u_new_chain(ch->array.data, ch->array.n);
 }
 
 //----------------------------------------------------
-void rewrite_chain(struct chain* ch,void* data, size_t n)
+void u_rewrite_chain(struct chain* ch,void* data, size_t n)
 {
     if(ch->array.data){
         u_free(ch->array.data);
     }
-    if(ch->array.data=u_malloc(n))
+    ch->array.data=u_malloc(n);
+    if(ch->array.data)
     {
         u_memcpy(ch->array.data, data, n);
         ch->array.n=n;
@@ -225,7 +224,16 @@ void rewrite_chain(struct chain* ch,void* data, size_t n)
     
 // }
 //----------------------------------------------------
-void print_chain(struct chain* ch)
+/***********************************************************
+* *********************************************************
+* *********************************************************
+* *********************************************************
+* ********************************************************* 
+* **********************************************************/
+#ifdef DEBUG
+
+
+static void print_chain(struct chain* ch)
 {
 
     struct chain* first; 
@@ -242,7 +250,7 @@ void print_chain(struct chain* ch)
     
 }
 
-void print_selected(struct chain* ch)
+static void print_selected(struct chain* ch)
 {
 
 
@@ -303,3 +311,5 @@ int main(){
 }
 //-------------
 
+#endif // DEBUG
+#undef c_new
