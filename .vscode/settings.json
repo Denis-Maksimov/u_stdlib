@@ -1,0 +1,19 @@
+{
+    "debug.allowBreakpointsEverywhere": true,
+    "editor.renderWhitespace": "none",
+    "editor.renderControlCharacters": false,
+    "C_Cpp.updateChannel": "Insiders",
+    "window.zoomLevel": 0,
+    "explorer.confirmDragAndDrop": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "lonefy.vscode-JS-CSS-HTML-formatter"
+    },
+    // "C_Cpp.default.systemIncludePath": ["/usr/lib/avr/include/",],
+    "C_Cpp.default.browse.path": [
+        "$(workspace)/inc/",
+        "$(workspace)/",
+    ],
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    
+}
