@@ -29,7 +29,7 @@ CC:=gcc
 
 ##############################################################
 #flags
-CFLAGS:= -O2 -Wall $(addprefix -I,$(INC) )
+CFLAGS:= -O2 -Wall $(addprefix -I,$(INC) ) -g
 
 # если не поддерживается деление
 # CFLAGS+=-DNO_DIVISION

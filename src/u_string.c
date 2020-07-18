@@ -255,10 +255,23 @@ void* u_intToStr(int integer){
 
 }//itoa
 
-void u_intToHex(unsigned int n, char* s){
-	//TODO
-	return;
+void u_intToHex(unsigned int n, char* s)
+{
+    int i=0;
+    do {       /* генерируем цифры в обратном порядке */
+        s[i] = (s8)( ((n & (0x0f<<(i*4)))>>(i*4)) + '0');   /* берем следующую цифру */
+        if(s[i]>'9')
+        {
+            s[i]+=7;
+        }
+        n &= ~(0x0f<<(i*4));
+        i++;
+    }while(n);     /* удаляем */
+
+    s[i] = '\0';
+    reverse(s);
 }
+
 #else
 /* itoa:  конвертируем n в символы в s */
 void u_intToHex(unsigned int n, char* s)
@@ -292,6 +305,9 @@ void u_intToStr(unsigned int n, char* s)
      s[i] = '\0';
      reverse(s);
  }
+
+
+
 
 #endif
 /* Чёрная магия с просторов хабра, красиво, как по мне
