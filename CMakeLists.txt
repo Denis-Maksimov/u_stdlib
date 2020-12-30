@@ -20,8 +20,13 @@ set(SOURCES
 		./src/u_mallocat.c
 		./src/u_string.c
 		./src/u_chain.c
+		./src/u_vector.c
+		./src/u_graph.c
+
 		./u_test.c
 		./main.c
+		./hex.c
+		#./crc16.c
 #-----------------
 )			
 
@@ -50,7 +55,18 @@ add_executable(${OUTNAME} ${SOURCES})
 
 #====================================================================================
 #Добавление подпроекта, указывается имя дирректории
-# add_subdirectory(foo_lib)				
+# add_subdirectory(foo_lib)	
+
+#===========================
+# Флаги компиляции
+#===========================
+set(MYCOMPILE_FLAGS
+#-----------------
+		-g
+#-----------------
+)		
+SET(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} ${MYCOMPILE_FLAGS}")
+#===========================
 
 #==================
 #=== Библиотеки ===

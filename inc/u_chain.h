@@ -1,7 +1,7 @@
 #ifndef U_CHAIN_H
 #define U_CHAIN_H
-#include "u_stddef.h"
-#include "u_mallocat.h"
+#include "../u_stdlib.h"
+
 //-------------
 struct Array{
     void* data;

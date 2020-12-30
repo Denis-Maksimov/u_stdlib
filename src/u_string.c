@@ -169,9 +169,9 @@ char* u_strrchr(const char *__s, const char __c){
 /* Compare N characters of S1 and S2.  */
 size_t u_strncmp(const char* __str1, const char* __str2, size_t __n){
 
-	for(int i; i < __n; i++)
+	for(int i=0; i < __n; i++)
 	{
-		if(__str1[i]!=__str2[i])
+		if(__str1[i]!=__str2[i] || __str1[i]==0 || __str2[i]==0)
 		{
 			return (__str1[i] - __str2[i]);
 		}
