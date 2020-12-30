@@ -1,6 +1,4 @@
 
-
-
 typedef union
 {
     int raw;
@@ -45,6 +43,9 @@ u_fixed16 fix_div(u_fixed16 a, u_fixed16 b)
     u_fixed16 rv={.raw=r|sign};
     return rv;
 }
+
+#ifdef _STDIO_H
+
 #include <stdio.h>
 void print_drob(u_fixed16 a){
 
@@ -54,6 +55,7 @@ void print_drob(u_fixed16 a){
     a=fix_mull(a,b);
     printf("%d\n",a.m);
 }
+#endif // DEBUG
 
 u_fixed16 u_int_to_fixed16(short m,unsigned short n){
     u_fixed16 a={.m=n,.n=0};
@@ -67,7 +69,8 @@ u_fixed16 u_int_to_fixed16(short m,unsigned short n){
 u_fixed16 u_sqrt(u_fixed16 A);
 u_fixed16 u_ln(u_fixed16 A);
 
-int main(int argc, char const *argv[])
+
+__attribute__((weak)) int main(int argc, char const *argv[]) 
 {
     u_fixed16 a=u_int_to_fixed16(3,0000);
     a=u_ln(a);
@@ -76,6 +79,7 @@ int main(int argc, char const *argv[])
   
     return 0;
 }
+
 
 u_fixed16 u_sqrt(u_fixed16 A)
 {

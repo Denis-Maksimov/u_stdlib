@@ -276,6 +276,8 @@ void u_graph_bfs_wires(u_graph* graph, size_t num_wire,  u_vector* wires)
 }
 
 //======== Зависит от printf, puts ====================
+#ifdef _STDIO_H
+
 
 void u_graph_print_short_way(u_graph* graph, char* A, char* B)
 {
@@ -310,3 +312,4 @@ void u_graph_print_wires(u_graph* graph)
     }
 }
 
+#endif // _STDIO_H

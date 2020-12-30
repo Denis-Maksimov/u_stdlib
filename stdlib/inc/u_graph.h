@@ -60,8 +60,10 @@ void u_graph_bfs_wires(u_graph* graph, size_t num_wire,  u_vector* wires);
 
 
 //======== Зависит от printf, puts ====================
-#include <stdio.h>
+// #include <stdio.h>
+#ifdef _STDIO_H
 void u_graph_print_wires(u_graph* graph);
 void u_graph_print_short_way(u_graph* graph, char* A, char* B);
+#endif // _STDIO_H
 
 #endif //!U_GRAPH_H

@@ -15,8 +15,8 @@ struct memory_block{
 	u16 size:15;
 };//_head_mcb={1,uHEAP_SIZE-sizeof(struct memory_block)};
 
-static u8 heap[uHEAP_SIZE]={1|(((uHEAP_SIZE-sizeof(struct memory_block))<<1)&0xff),(((uHEAP_SIZE-sizeof(struct memory_block))<<1)&0xff00)>>8};
-static u8 init_flag=0;
+static u8 u_heap[uHEAP_SIZE]={1|(((uHEAP_SIZE-sizeof(struct memory_block))<<1)&0xff),(((uHEAP_SIZE-sizeof(struct memory_block))<<1)&0xff00)>>8};
+// static u8 init_flag=0;
 // static inline void first_init(){
 //     ((struct memory_block*)((void*)heap))->is_available=1;
 //     ((struct memory_block*)((void*)heap))->size=uHEAP_SIZE-sizeof(struct memory_block);
@@ -24,7 +24,7 @@ static u8 init_flag=0;
 
 u8* u_get_heap(void)
 {
-    return &heap[0];
+    return &u_heap[0];
 }
 
 static inline void* process_alloc(struct memory_block* heap_mb,u16 size){
@@ -49,7 +49,7 @@ void* u_malloc(size_t size){
     //     first_init();
     // }
     s16 aval_size=uHEAP_SIZE;
-    struct memory_block* heap_ptr=((struct memory_block*)((void*)heap));
+    struct memory_block* heap_ptr=((struct memory_block*)((void*)u_heap));
     while (aval_size>sizeof(struct memory_block))
     {
         aval_size=aval_size-sizeof(struct memory_block);
@@ -74,7 +74,7 @@ static inline void merge_heap(void)
 {
     //TODO
     //указатель на начало
-    struct memory_block* heap_mb=((struct memory_block*)((void*)heap));
+    struct memory_block* heap_mb=((struct memory_block*)((void*)u_heap));
     //указатель на следующий для шагания
     struct memory_block* heap_mb_next;
 

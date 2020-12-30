@@ -1,6 +1,4 @@
-#include <stdio.h>
-// #include <stdlib.h>
-#include <string.h>
+// #include <string.h>
 #include "u_chain.h"
 
 
@@ -10,7 +8,7 @@
 
 //=============================================================
 
-struct chain* init_chain(void)
+static struct chain* init_chain(void)
 {
     struct chain* ret_ch = c_new(struct chain);
     u_memset(ret_ch, 0, sizeof(struct chain));
