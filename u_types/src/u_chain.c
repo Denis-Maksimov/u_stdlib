@@ -228,7 +228,7 @@ void u_rewrite_chain(struct chain* ch,void* data, size_t n)
 * *********************************************************
 * ********************************************************* 
 * **********************************************************/
-#ifdef DEBUG
+#ifdef _STDIO_H
 
 
 static void print_chain(struct chain* ch)
@@ -297,11 +297,12 @@ void _test1_()
 }
 
 
-
+#endif // _STDIO_H
 
 
 //-------------
-int main(){
+__attribute__((weak)) int main(int argc, char const *argv[]) 
+{
 
     _test1_();
     // free_chain(pointer);
@@ -309,5 +310,5 @@ int main(){
 }
 //-------------
 
-#endif // DEBUG
+
 #undef c_new

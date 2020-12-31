@@ -1,8 +1,7 @@
 #ifndef U_MALLOC_H
 #define U_MALLOC_H
 
-#include "../u_stdlib.h"
-
+#include <u_stdlib.h>
 
 #define STDLIB_API extern
 /** **************************************************************
