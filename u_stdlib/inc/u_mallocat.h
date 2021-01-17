@@ -3,7 +3,7 @@
 
 #include <u_stdlib.h>
 
-#define STDLIB_API extern
+
 /** **************************************************************
  * @autor: dn.maksimow@gmail.com
  * 
@@ -42,5 +42,4 @@ STDLIB_API u8* u_get_heap(void);
 STDLIB_API void* u_realloc (void *__ptr, size_t __size);
 
 
-#undef STDLIB_API
 #endif // !U_MALLOC_H

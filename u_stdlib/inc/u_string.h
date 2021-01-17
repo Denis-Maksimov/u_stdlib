@@ -3,7 +3,7 @@
 
 #include <u_stdlib.h>
 
-#define STDLIB_API extern
+
 
 //если не поддерживается деление
 // #define NO_DIVISION
@@ -36,6 +36,10 @@ STDLIB_API size_t u_strncmp(const char* str1, const char* str2, size_t len);
 /* Find the last occurrence of C in S.  */
 STDLIB_API char* u_strrchr(const char* __s, const char __c);
 
-#undef STDLIB_API
+STDLIB_API int u_isdigit(char ch);
+STDLIB_API int u_isxdigit(char ch);
+STDLIB_API int u_isupper(char ch);
+STDLIB_API char u_tolower(char ch);
+STDLIB_API int u_isspace(char ch);
 
 #endif // !STRING_H

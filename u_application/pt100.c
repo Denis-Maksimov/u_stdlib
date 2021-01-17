@@ -1,4 +1,4 @@
-#include "u_math.h"
+// #include "u_math.h"
 
 //+-0.4 градуса возвращает 100*температура
 int R_to_Temp(int Rt){

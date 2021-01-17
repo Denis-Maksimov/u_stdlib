@@ -1,8 +1,13 @@
 #ifndef U_STDLIB_H
+#define U_STDLIB_H
 
-#include "u_stddef.h"
-#include "u_mallocat.h"
-#include "u_string.h"
+#ifndef STDLIB_API
+#define STDLIB_API extern
+#endif
+
+#include "inc/u_stddef.h"
+#include "inc/u_mallocat.h"
+#include "inc/u_string.h"
 /** **************************************************************
  * @autor: dn.maksimow@gmail.com
  * 

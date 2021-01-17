@@ -1,2 +1,5 @@
 *.o
+*.a
 build
+./u_stdlib/slre.*
+.vscode
