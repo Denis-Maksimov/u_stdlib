@@ -109,7 +109,7 @@ hash_table* addnode( hash_table *table, int id, void* data)
         memset(table->nodes,0,HASH_S*sizeof(hnode));
     }
     hnode* el= &(table->nodes[hash_func(id,table->size)]);
-
+    
     while (el->flags==1)
     {
         el++;
@@ -120,6 +120,7 @@ hash_table* addnode( hash_table *table, int id, void* data)
         el->key=id;
         el->flags=1;
     }
+    table->n_elem++;
     return table;
 
 }
@@ -225,6 +226,7 @@ hash_table_v2* addnode_v2( hash_table_v2 *table, char* key, void* data)
         strcpy(el->key,key);
         el->flags=1;
     }
+    table->n_elem++;
     return table;
 }
 
