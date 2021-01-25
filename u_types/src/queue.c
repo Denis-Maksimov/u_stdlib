@@ -49,7 +49,7 @@ int isfull(struct queue *q)
   return 0;
 }
 
-int insert(struct queue *q, int x) {
+int insert(struct queue *q, void* x) {
   if(!isfull(q)) 
   {
     ((u8*)q->qu)[q->count]=x;
@@ -70,7 +70,7 @@ int pop_queue(struct queue *q) {
 
   //сдвинуть по байтикам
   for(int i = 0; i < q->count; i++) {
-    ((u8*)q->qu)[i] = ((u8*)q->qu)[i+1];
+    ((size_t*)q->qu)[i] = ((size_t*)q->qu)[i+1];
   }
 
   q->count--;

@@ -1,13 +1,3 @@
-#ifndef U_STDLIB_H
-#define U_STDLIB_H
-
-#ifndef STDLIB_API
-#define STDLIB_API extern
-#endif
-
-#include "inc/u_stddef.h"
-#include "inc/u_mallocat.h"
-#include "inc/u_string.h"
 /** **************************************************************
  * @autor: dn.maksimow@gmail.com
  * 
@@ -49,5 +39,50 @@
  * ************************************************************** */
 
 
+#ifndef U_STDLIB_H
+#define U_STDLIB_H
+
+#ifndef STDLIB_API
+#define STDLIB_API extern
+#endif
+#ifndef _STDLIB_H
+
+#include "inc/u_stddef.h"
+#include "inc/u_mallocat.h"
+#include "inc/u_string.h"
+
+
+
+#define free    u_free
+#define malloc  u_malloc
+#define realloc u_realloc
+#define memcpy  u_memcpy
+#define memset  u_memset
+#define strchr  u_strchr
+#define strlen  u_strlen
+#define strncmp u_strncmp
+#define strrchr u_strrchr
+#define strstr  u_strstr
+
+#define _STDLIB_H
+#else
+
+
+#define u_free       free     
+#define u_malloc     malloc  
+#define u_realloc    realloc 
+#define u_memcpy     memcpy  
+#define u_memset     memset  
+#define u_strchr     strchr  
+#define u_strlen     strlen  
+#define u_strncmp    strncmp 
+#define u_strrchr    strrchr 
+#define u_strstr     strstr  
+
+#include <stdlib.h>
+#include <string.h>
+
+
+#endif
 
 #endif // !U_STDLIB_H

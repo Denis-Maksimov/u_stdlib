@@ -3,17 +3,22 @@
 
 
 
-void u_vector_init(u_vector* vec,size_t typesize)
+void u_vector_init(u_vector* vec)
 {
     vec->mem=0;
     vec->n_elem=0;
-    vec->typesize=typesize;
 }
 
 
-void u_vector_deinit(u_vector* vec)
+void u_vector_deinit(u_vector* vec,void(*free_func)(void*))
 {
-    u_free(vec->mem);
+    if(free_func){
+        for (size_t i = 0; i < vec->n_elem; i++)
+        {
+            free_func((vec->mem[i]));
+        }   
+    }
+    free(vec->mem);
     vec->mem=0;
     vec->n_elem=0;
 }
@@ -23,36 +28,26 @@ void u_vector_push_back(u_vector* vec, void* el)
 {
     
     vec->n_elem++;
-    vec->mem=u_realloc(vec->mem, vec->typesize*vec->n_elem);
-
-    u_memcpy((u8*)vec->mem+(vec->typesize*(vec->n_elem-1)), 
-                el, 
-                vec->typesize);
+    vec->mem=realloc(vec->mem, (sizeof(size_t))*vec->n_elem);
+    vec->mem[vec->n_elem-1]=el;
 
 }
 
-void u_vector_pop_back(u_vector* vec, void* el)
+void* u_vector_pop_back(u_vector* vec)
 {
     
-    if(!vec->n_elem)return;
-
-    if(el){
-        u_memcpy(   
-                    el, 
-                    (u8*)vec->mem+(vec->typesize*(vec->n_elem-1)), 
-                    vec->typesize
-                );
-    }
+    if(!vec->n_elem)return 0;
 
     vec->n_elem--;
-    vec->mem=u_realloc(vec->mem, vec->n_elem);
-
+    void* rv = vec->mem[vec->n_elem];
+    vec->mem=realloc(vec->mem, vec->n_elem);
+    return rv;
 }
 
 
 void* u_vector_at(u_vector* vec,size_t at)
 {
-    return &((u8*)vec->mem)[at*vec->typesize];
+    return vec->mem[at];
 }
 
 #define IS_EQUAL    0
@@ -60,25 +55,48 @@ void* u_vector_at(u_vector* vec,size_t at)
 
 int u_vector_cmp(u_vector* vec,size_t ind,void* el)
 {
-    u8* el_in_v=(u8*)u_vector_at(vec, ind);
 
-    for(size_t i=0; i < vec->typesize; i++)
-	{
-		if( el_in_v[i] != ((u8*)el)[i])
-		{
-			return NO_EQUAL;
-		}
-
-	}
-    return IS_EQUAL;
-
+    if(u_vector_at(vec, ind)==el)
+        return IS_EQUAL;
+    return NO_EQUAL;
 }
 
-int u_vector_find(u_vector* vec,void* el)
+int u_vector_is_exist(u_vector* vec,void* el)
 {
     for (size_t i = 0; i < vec->n_elem; i++)
     {
         if(!u_vector_cmp(vec,i,el))return 1;
+    }
+    return 0;
+}
+
+int u_vector_get_indx(u_vector* vec,void* el)
+{
+    for (size_t i = 0; i < vec->n_elem; i++)
+    {
+        if(!u_vector_cmp(vec,i,el))return i;
+    }
+    return 0;
+}
+
+
+int u_vector_find_indx(u_vector* vec,int(*cmp)(void* el, void* comparation),void* comparation )
+{
+    for (size_t i = 0; i < vec->n_elem; i++)
+    {
+        if(!cmp(vec->mem[i], comparation))
+            return i;
+    }
+    return 0;
+}
+
+
+void* u_vector_find(u_vector* vec,int(*cmp)(void* el, void* comparation),void* comparation )
+{
+    for (size_t i = 0; i < vec->n_elem; i++)
+    {
+        if(!cmp(vec->mem[i], comparation))
+            return vec->mem[i];
     }
     return 0;
 }
