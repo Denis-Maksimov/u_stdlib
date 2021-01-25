@@ -28,7 +28,7 @@ static void init_pearson_table(unsigned char* tbl,unsigned int __seed)
 // end loop
 // return h
 //----------------------------------------------
-static size_t pearson_hash(char* key,size_t clamp)
+size_t pearson_hash(char* key,size_t clamp)
 {
     if(!table_yes)init_pearson_table(T,123);
     
@@ -58,7 +58,7 @@ void hashprint(hash_table *tree)
     for (size_t i = 0; i < tree->size; i++)
     {
        if(tree->nodes[i].flags){
-           printf("i=%d; id=%d;\n",i,tree->nodes[i].key);
+           printf("i=%ld; id=%d;\n",i,tree->nodes[i].key);
            a--;
            if(!a)return;
        }
@@ -170,7 +170,7 @@ void hashprint_v2(hash_table_v2 *tree)
     for (size_t i = 0; i < tree->size; i++)
     {
        if(tree->nodes[i].flags){
-           printf("i=%d; id=%s;\n",i, tree->nodes[i].key);
+           printf("i=%ld; id=%s;\n",i, tree->nodes[i].key);
            a--;
            if(!a)return;
        }

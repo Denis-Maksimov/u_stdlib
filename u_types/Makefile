@@ -23,4 +23,4 @@ libu_types.a: $(OBJ)
 
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) libu_types.a
