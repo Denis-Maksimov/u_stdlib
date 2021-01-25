@@ -9,7 +9,7 @@ u_types/libu_types.a
 all: libu_std.a
 
 libu_std.a: $(LIBS)
-	ar crs $@ $^
+	ar crT $@ $^
 
 u_stdlib/libu_stdlib.a:
 	${MAKE} -C u_stdlib

@@ -45,9 +45,11 @@
 #ifndef STDLIB_API
 #define STDLIB_API extern
 #endif
-#ifndef _STDLIB_H
 
 #include "inc/u_stddef.h"
+
+#ifndef _STDLIB_H
+
 #include "inc/u_mallocat.h"
 #include "inc/u_string.h"
 

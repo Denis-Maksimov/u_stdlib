@@ -258,20 +258,20 @@ int main_v1(int argc, char* argv[] )
 }
 
 
-int main(int argc, char* argv[] ) 
-{
-  hash_table_v2 *root = 0;    // Объявляем структуру дерева
-  // В цикле вводим 8 узлов дерева
-  for (int i = 0; i<7; i++) 
-  {
-    root = addnode_v2(root, key2[i] ,  &vals[i]); // размещаем введенный узел на дереве
-  }
+// int main(int argc, char* argv[] ) 
+// {
+//   hash_table_v2 *root = 0;    // Объявляем структуру дерева
+//   // В цикле вводим 8 узлов дерева
 //   for (int i = 0; i<7; i++) 
 //   {
-//     printf("ID=%d data=%s\n",keys[i], ((char**)get_data_by_key(root,keys[i]))[0]); // размещаем введенный узел на дереве
+//     root = addnode_v2(root, key2[i] ,  &vals[i]); // размещаем введенный узел на дереве
 //   }
-  hashprint_v2(root);
+// //   for (int i = 0; i<7; i++) 
+// //   {
+// //     printf("ID=%d data=%s\n",keys[i], ((char**)get_data_by_key(root,keys[i]))[0]); // размещаем введенный узел на дереве
+// //   }
+//   hashprint_v2(root);
   
-  freemem_v2(root, 0);      // удаляем выделенную память
-  return 0;
-}
+//   freemem_v2(root, 0);      // удаляем выделенную память
+//   return 0;
+// }
