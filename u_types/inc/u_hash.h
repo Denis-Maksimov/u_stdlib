@@ -31,7 +31,7 @@ size_t pearson_hash(char* key,size_t clamp);//хэш функция Пирсон
 hash_table* addnode( hash_table *tree, int id, void* data);// Добавление узлов
 void freemem(hash_table *tree, void(*data_free_f)(void*));//Освобождение памяти таблицы
 hnode* get_elem_by_key(hash_table*,int key);//--взять ноду по id
-void* get_data_by_key(hash_table* ,int key);//данные по id
+void* u_get_data_by_key(hash_table* ,int key);//данные по id
 
 
 

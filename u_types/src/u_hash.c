@@ -128,7 +128,7 @@ hnode* get_elem_by_key(hash_table* table,int key)
 {
     hnode* el= &(table->nodes[hash_func(key, table->size)]);
 
-    while (el->key!=key)
+    while ((el->key!=key)&& el<table->size-1)
     {
         el++;
         if(&table->nodes[table->size-1]<el)return 0;
@@ -136,7 +136,7 @@ hnode* get_elem_by_key(hash_table* table,int key)
     return el;
 
 }
-void* get_data_by_key(hash_table* tab,int key)
+void* u_get_data_by_key(hash_table* tab,int key)
 {
     return get_elem_by_key(tab,key)->data;
 
